@@ -1,0 +1,204 @@
+﻿<Window x:Class="StopWatch.View.Setting"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StopWatch.View"
+        ResizeMode="NoResize"
+        WindowStyle="ToolWindow" FontSize="20" Background="LightGray"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="Настройки" Height="500" Width="600" >
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="40"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <Label  Content="Настройка обратного отсчета:"/>
+            <Separator/>
+            <Label Content="Звуковое сопровождение:" />
+            <Separator Margin="0,3,0,0"/>
+            <Label Content="Использование клавиатуры:" />
+            <Separator Margin="0,4,0,0"/>
+            <Label Content="Использование com-порт:" />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="2">
+            <StackPanel.Resources>
+                <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
+                    <Setter Property="SnapsToDevicePixels" Value="true" />
+                    <Setter Property="OverridesDefaultStyle" Value="true" />
+                    <Setter Property="Height" Value="50" />
+                    <Setter Property="FocusVisualStyle" Value="{DynamicResource MyFocusVisualStyte}" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type CheckBox}">
+                                <BulletDecorator Width="Auto" Height="Auto" Margin="15,0,0,0">
+                                    <BulletDecorator.Bullet>
+                                        <Grid Height="{TemplateBinding Height}" Width="{Binding RelativeSource={RelativeSource Self}, Path=Height, UpdateSourceTrigger=PropertyChanged}"
+                              MinHeight="50" MinWidth="50" ShowGridLines="False">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="4*" />
+                                                <ColumnDefinition Width="1*" />
+                                                <ColumnDefinition Width="1*" />
+                                                <ColumnDefinition Width="4*" />
+                                                <ColumnDefinition Width="1*" />
+                                                <ColumnDefinition Width="1*" />
+                                                <ColumnDefinition Width="2*" />
+                                                <ColumnDefinition Width="2*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="3*" />
+                                                <RowDefinition Height="1*" />
+                                                <RowDefinition Height="1*" />
+                                                <RowDefinition Height="1*" />
+                                                <RowDefinition Height="4*" />
+                                                <RowDefinition Height="1*" />
+                                                <RowDefinition Height="1*" />
+                                                <RowDefinition Height="4*" />
+                                            </Grid.RowDefinitions>
+
+                                            <Border Name="MainBorder"
+                                    Grid.ColumnSpan="9" Grid.RowSpan="9"
+                                    CornerRadius="4"
+                                    BorderThickness="1"
+                                    Background="Transparent" Margin="0,-10,0,10"/>
+
+                                            <Border Name="InnerBorder"
+                                    Grid.Column="1" Grid.ColumnSpan="5"
+                                    Grid.Row="2" Grid.RowSpan="5"
+                                    BorderThickness="1"
+                                    BorderBrush="#808080" Margin="0,-10,0,10"/>
+
+                                            <Path Name="InnerPath"
+                                  Grid.Column="1" Grid.ColumnSpan="5"
+                                  Grid.Row="2" Grid.RowSpan="5"
+                                  Data="M31,5 L19.5,5 19.5,19.5 34.5,19.5 34.5,11.75"
+                                  Stretch="Fill" Stroke="#808080" Margin="0,-10,0,10"/>
+
+                                            <Path Name="CheckMark"
+                                  Grid.Column="2" Grid.ColumnSpan="5"
+                                  Grid.Row="1" Grid.RowSpan="5"
+                                  Opacity="0"
+                                  Data="M9.07743946676476E-09,4.31805768640244L4.68740335877841,8.86361158398516C4.68740335877841,8.86361158398516,16.3281249985376,-2.42451336648723,16.3281249985376,-2.42451336648723L14.0622100581796,-4.77304938341948 4.68740335877846,4.31805791992662 2.22656251699567,1.93164208562579z"
+                                  Fill="#3babe3"
+                                  Stretch="Fill"
+                                  Stroke="#3babe3" Margin="0,-10,0,10"/>
+
+                                            <Path Name="InderminateMark"
+                                  Grid.Column="3"
+                                  Grid.Row="4"
+                                  Data="M0,4 L1,5 5,1 4,0"
+                                  Opacity="0"
+                                  Stretch="Fill"
+                                  StrokeThickness="0"
+                                  Fill="#808080" Margin="0,-10,0,10" />
+                                        </Grid>
+                                    </BulletDecorator.Bullet>
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CheckStates">
+                                            <VisualState x:Name="Checked">
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="CheckMark" Duration="0:0:0.2" To="1" />
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="Unchecked" >
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="CheckMark" Duration="0:0:0.2" To="0" />
+                                                </Storyboard>
+                                            </VisualState>
+                                            <VisualState x:Name="Indeterminate">
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="InderminateMark" Duration="0:0:0.2" To="1" />
+                                                </Storyboard>
+                                            </VisualState>
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                    <ContentPresenter Margin="4,0,4,0"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        RecognizesAccessKey="True" />
+                                </BulletDecorator>
+
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsChecked" Value="True">
+                                        <Setter TargetName="InnerBorder" Property="Visibility" Value="Collapsed" />
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="MainBorder" Property="Background" Value="#81d2eb" />
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter TargetName="CheckMark" Property="Fill" Value="#cccccc" />
+                                        <Setter TargetName="CheckMark" Property="Stroke" Value="#cccccc" />
+                                        <Setter TargetName="InnerPath" Property="Stroke" Value="#cccccc" />
+                                        <Setter TargetName="InderminateMark" Property="Fill" Value="#cccccc" />
+                                        <Setter TargetName="InnerBorder" Property="BorderBrush" Value="#cccccc" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </StackPanel.Resources>
+            <TextBox Text="{Binding  From,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" HorizontalContentAlignment="Center"  Width="50"  Height="37" Margin="6,0,0,0"/>
+            <Separator/>
+            <CheckBox HorizontalAlignment="Center" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Sound}" Height="37" Margin="50,0" Width="76"/>
+            <Separator/>
+            <CheckBox HorizontalAlignment="Center" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Emulation}" Height="37" Margin="50,0" Width="76"/>
+            <Separator/>
+            <CheckBox HorizontalAlignment="Center" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding ComPort}" Height="37" Margin="55,0" Width="76"/>
+        </StackPanel>
+        <GroupBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Header="Настройка кнопок">
+            <Grid  TextElement.FontSize="17">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Номер COM-порт"/>
+                <TextBox Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Port, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" VerticalAlignment="Center" HorizontalContentAlignment="Center"/>
+
+                <Label Grid.Row="1" Content="Скорость COM-порт"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Speed, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" VerticalAlignment="Center"  HorizontalContentAlignment="Center"/>
+
+                <Label Grid.Row="2" Content="1 дорожка"/>
+                <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"  VerticalAlignment="Center" HorizontalContentAlignment="Center"
+                          ItemsSource="{Binding Rides}" SelectedItem="{Binding RideOne}"/>
+
+                <Label Grid.Row="3" Content="2 дорожка"/>
+                <ComboBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"  VerticalAlignment="Center" HorizontalContentAlignment="Center"
+                          ItemsSource="{Binding Rides}" SelectedItem="{Binding RideTwo}"/>
+
+                <Label Grid.Row="4" Content="Кнопка 'CST'"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding ButtonCTS, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" 
+                         IsReadOnly="True" VerticalAlignment="Center"  HorizontalContentAlignment="Center" />
+                <Button x:Name="CTS"  Grid.Row="4" Grid.Column="2" Content="Назначить" Height="25" Margin="10" Command="{Binding Appoint}" CommandParameter="{Binding ElementName=CTS, Path=Name}"/>
+
+
+                <Label Grid.Row="5" Content="Кнопка 'DSR'"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding ButtonDSR, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}" 
+                         IsReadOnly="True" VerticalAlignment="Center"  HorizontalContentAlignment="Center"/>
+                <Button x:Name="DSR" Grid.Row="5" Grid.Column="2" Content="Назначить" Height="25" Margin="10" Command="{Binding Appoint}" CommandParameter="{Binding ElementName=DSR, Path=Name}"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>
